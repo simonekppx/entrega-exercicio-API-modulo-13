@@ -1,0 +1,276 @@
+{
+	"info": {
+		"_postman_id": "7157cb4d-1690-445d-b3a3-8575bab90032",
+		"name": "Exercício EBAC Modulo 13",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17254865",
+		"_collection_link": "https://especialistas.postman.co/workspace/Estudos-EBAC~ea56d907-75b3-42c8-83e9-1862c7cc6cd7/collection/17254865-7157cb4d-1690-445d-b3a3-8575bab90032?action=share&creator=17254865&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "cadastrar usuario com sucesso",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Validar mensagem de sucesso\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Cadastro realizado com sucesso\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validar Status Code\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"Valtinho Kovalenkinas\",\r\n  \"email\": \"valtinho@qa.com.br\",\r\n  \"password\": \"teste\",\r\n  \"administrador\": \"true\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{local}}usuarios",
+					"host": [
+						"{{local}}usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cadastrar usuario com email repetido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Validar mensagem de cadastro com email repetido\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Este email já está sendo usado\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validar Status Code\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"Luan de Almeida\",\r\n  \"email\": \"simoninha@qa.com.br\",\r\n  \"password\": \"teste\",\r\n  \"administrador\": \"true\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{local}}usuarios",
+					"host": [
+						"{{local}}usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "listar usuarios cadastrados",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Validar response body\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"nome\", \"email\", \"administrador\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validar Status code\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{local}}usuarios",
+					"host": [
+						"{{local}}usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "buscar usuario por id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Validar nome de usuario\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Simoninha Kovalenkinas\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validar Status code\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{local}}usuarios/M13QHPZdRi4VHoIU",
+					"host": [
+						"{{local}}usuarios"
+					],
+					"path": [
+						"M13QHPZdRi4VHoIU"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "editar usuario com sucesso",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Validar mensagem de sucesso\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Registro alterado com sucesso\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validar Status code\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"Simoninha Kovalenkinas\",\r\n  \"email\": \"simoninha@qa.com.br\",\r\n  \"password\": \"teste1\",\r\n  \"administrador\": \"true\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{local}}usuarios/M13QHPZdRi4VHoIU",
+					"host": [
+						"{{local}}usuarios"
+					],
+					"path": [
+						"M13QHPZdRi4VHoIU"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "editar usuario com email repetido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Validar mensagem de erro\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Este email já está sendo usado\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validar Status code\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"Simoninha Kovalenkinas\",\r\n  \"email\": \"simoninha@qa.com.br\",\r\n  \"password\": \"teste1\",\r\n  \"administrador\": \"true\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{local}}usuarios/M13QHPZdRi4VHoIP",
+					"host": [
+						"{{local}}usuarios"
+					],
+					"path": [
+						"M13QHPZdRi4VHoIP"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "excluir usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Validar mensagem de sucesso\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Registro excluído com sucesso\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validar Status code\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{local}}usuarios/f2LQ2knVIZWkKxIp",
+					"host": [
+						"{{local}}usuarios"
+					],
+					"path": [
+						"f2LQ2knVIZWkKxIp"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
